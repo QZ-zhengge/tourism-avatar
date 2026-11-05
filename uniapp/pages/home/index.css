@@ -1,0 +1,227 @@
+.page {
+  min-height: 100vh;
+  background: #f4f7fa;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: border-box;
+}
+
+.safe-bottom-space {
+  height: calc(130rpx + env(safe-area-inset-bottom));
+}
+
+/* ===== Hero 区域 ===== */
+.hero {
+  position: relative;
+  padding: calc(env(safe-area-inset-top) + 20rpx) 24rpx 0;
+  background: #f4f7fa;
+}
+
+/* 轮播图外层：露出边框效果 */
+.swiper-wrap {
+  border-radius: 28rpx;
+  overflow: hidden;
+  width: 100%;
+  height: 420rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.15);
+}
+
+.hero-swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+}
+
+/* 天气浮层（叠在轮播图左上角） */
+.weather-box {
+  position: absolute;
+  left: 44rpx;
+  top: calc(env(safe-area-inset-top) + 36rpx);
+  padding: 12rpx 18rpx;
+  border-radius: 20rpx;
+  background: rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  min-width: 200rpx;
+  z-index: 3;
+}
+
+.district {
+  font-size: 28rpx;
+  font-weight: 700;
+  margin-bottom: 4rpx;
+}
+
+.picker-row {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+}
+
+.district-text {
+  font-size: 28rpx;
+  font-weight: 700;
+  text-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.4);
+}
+
+.picker-arrow {
+  font-size: 18rpx;
+  opacity: 0.75;
+}
+
+.weather-line {
+  font-size: 20rpx;
+  opacity: 0.92;
+  display: flex;
+  align-items: center;
+}
+
+.weather-icon {
+  margin-right: 6rpx;
+  font-size: 22rpx;
+}
+
+/* ===== 内容区域 ===== */
+.content-wrap {
+  margin-top: 20rpx;
+  padding: 0 24rpx;
+}
+
+.section-card {
+  background: #fff;
+  border-radius: 28rpx;
+  padding: 22rpx 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #1c2f3f;
+  margin-bottom: 18rpx;
+}
+
+/* ===== 探索服务：2行×5列 图标网格 ===== */
+.function-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16rpx 8rpx;
+}
+
+.function-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.function-item:active {
+  opacity: 0.75;
+}
+
+/* 圆形彩色图标背景 */
+.fi-icon-wrap {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.fi-title {
+  font-size: 22rpx;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ===== 快捷操作行 ===== */
+.action-row {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.action-btn {
+  flex: 1;
+  min-height: 144rpx;
+  border-radius: 28rpx;
+  padding: 24rpx;
+  color: #fff;
+  box-shadow: 0 8rpx 28rpx rgba(41, 126, 154, 0.12);
+}
+
+.digital {
+  background: linear-gradient(135deg, #4ac7ff 0%, #4af0c9 100%);
+}
+
+.atlas {
+  background: linear-gradient(135deg, #66b5ff 0%, #7de3ff 45%, #7df0cb 100%);
+}
+
+.action-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  margin-bottom: 10rpx;
+}
+
+.action-sub {
+  font-size: 22rpx;
+  opacity: 0.92;
+}
+
+/* ===== 旅友圈精选 ===== */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+
+.more {
+  font-size: 22rpx;
+  color: #69a8c4;
+}
+
+.post-item {
+  display: flex;
+  gap: 18rpx;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f0f4f7;
+}
+
+.post-item:last-child {
+  border-bottom: none;
+}
+
+.post-cover {
+  width: 160rpx;
+  height: 120rpx;
+  border-radius: 18rpx;
+  flex-shrink: 0;
+}
+
+.post-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.post-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #224d65;
+  margin-bottom: 10rpx;
+}
+
+.post-excerpt {
+  font-size: 22rpx;
+  line-height: 1.7;
+  color: #7191a2;
+}

@@ -1,0 +1,18 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+pymysql
+python-multipart
+pydantic
+pydantic-settings
+cryptography
+# 讯飞虚拟人模块依赖
+httpx>=0.27.0
+websockets>=12.0
+# 本地语音转文字（Vosk 真正流式 ASR）
+# Vosk：逐帧解码，真正流式，延迟 < 500ms，离线运行
+# 注意：PyPI 包名是 vosk（不是 vosk）
+vosk>=0.3.45
+# ffmpeg-python 用于任意格式音频转 PCM（WAV/MP3/M4A 等）
+ffmpeg-python>=0.2.0
+# 不需要 torch！Vosk 是 C++ 推理引擎，比 Whisper 轻量很多

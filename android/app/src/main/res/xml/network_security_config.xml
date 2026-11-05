@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- 允许对后端 IP / 高德 / 讯飞走明文 HTTP（内网开发） -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">47.236.85.42</domain>
+        <domain includeSubdomains="true">172.20.10.3</domain>
+        <domain includeSubdomains="true">restapi.amap.com</domain>
+        <domain includeSubdomains="true">10.0.2.2</domain>
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">127.0.0.1</domain>
+        <!-- AMap SDK 内部 IP 段 -->
+        <domain includeSubdomains="true">amap.com</domain>
+        <domain includeSubdomains="true">autonavi.com</domain>
+        <domain includeSubdomains="true">aliyun.com</domain>
+        <!-- 讯飞数字人 -->
+        <domain includeSubdomains="true">xf-yun.com</domain>
+        <domain includeSubdomains="true">iflytek.com</domain>
+    </domain-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

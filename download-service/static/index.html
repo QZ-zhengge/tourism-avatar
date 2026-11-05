@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SoftwareCup — 下载</title>
+<style>
+/* ══════════════════════════════════════════════════ */
+/*  RESET & BASE                                     */
+/* ══════════════════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html, body { width:100%; height:100%; overflow:hidden; }
+body {
+  font-family: -apple-system, 'Segoe UI', 'PingFang SC', sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ══════════════════════════════════════════════════ */
+/*  BACKGROUND — FLOATING GEOMETRIC SHAPES          */
+/* ══════════════════════════════════════════════════ */
+.bg-layer { position:fixed; inset:0; z-index:0; overflow:hidden; }
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  animation: floatUp var(--dur) var(--delay) ease-in-out infinite;
+}
+.shape.circle { border: 1px solid rgba(255,255,255,0.12); }
+.shape.square { border-radius: 4px; background: rgba(255,255,255,0.04); }
+.shape.triangle {
+  width:0; height:0; background:none; border-radius:0;
+  border-left: var(--s) solid transparent;
+  border-right: var(--s) solid transparent;
+  border-bottom: calc(var(--s)*1.6) solid rgba(255,255,255,0.06);
+}
+
+@keyframes floatUp {
+  0%   { transform: translateY(100vh) rotate(0deg) scale(0.6); opacity:0; }
+  15%  { opacity:var(--o,0.5); }
+  85%  { opacity:var(--o,0.5); }
+  100% { transform: translateY(-20vh) rotate(var(--rot)) scale(1.1); opacity:0; }
+}
+
+/* ══════════════════════════════════════════════════ */
+/*  MAIN CARD                                        */
+/* ══════════════════════════════════════════════════ */
+.page {
+  position:relative; z-index:10;
+  display:flex; flex-direction:column; align-items:center; gap:32px;
+  animation: cardIn 1s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes cardIn {
+  0%   { opacity:0; transform:translateY(40px) scale(0.92); }
+  100% { opacity:1; transform:translateY(0)    scale(1); }
+}
+
+/* ── 图标 ───────────────────────────────── */
+.icon-wrap {
+  width:100px; height:100px;
+  border:2px solid rgba(255,255,255,0.2);
+  border-radius:24px;
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+  animation: iconPulse 3s ease-in-out infinite;
+}
+.icon-wrap::after {
+  content:''; position:absolute; inset:-8px; border-radius:32px;
+  border:1px solid rgba(255,255,255,0.08);
+  animation: iconRing 3s ease-in-out infinite;
+}
+@keyframes iconPulse {
+  0%,100% { transform:scale(1);   box-shadow:0 0 0 0 rgba(255,255,255,0); }
+  50%     { transform:scale(1.04);box-shadow:0 0 40px rgba(255,255,255,0.08); }
+}
+@keyframes iconRing {
+  0%,100% { transform:scale(1);   opacity:0.3; }
+  50%     { transform:scale(1.08);opacity:0.6; }
+}
+
+.icon-logo {
+  width:100%; height:100%; object-fit:cover;
+  border-radius:22px;
+}
+/* ── 名称 ───────────────────────────────── */
+.name {
+  font-size:28px; font-weight:700; letter-spacing:2px;
+  background: linear-gradient(135deg,#fff 0%,#888 50%,#fff 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-size:200% auto; animation:shimmer 3s linear infinite;
+}
+@keyframes shimmer { 0%{background-position:0 center;} 100%{background-position:200% center;} }
+
+/* ── 副标题 ─────────────────────────────── */
+.subtitle {
+  font-size:14px; font-weight:400; letter-spacing:4px;
+  color:rgba(255,255,255,0.35);
+  margin-top:-16px;
+  animation: cardIn 1s 0.15s cubic-bezier(.16,1,.3,1) both;
+}
+
+/* ── 版本信息 ──────────────────────────────── */
+.meta {
+  display:flex; gap:24px; font-size:13px;
+  color:rgba(255,255,255,0.45); letter-spacing:0.5px;
+}
+.meta span { display:flex; align-items:center; gap:6px; }
+.meta .dot { width:3px; height:3px; border-radius:50%; background:rgba(255,255,255,0.3); }
+
+/* ── 变更日志 ─────────────────────────────── */
+.changelog {
+  font-size:13px; color:rgba(255,255,255,0.35); line-height:2;
+  text-align:center; white-space:pre-line;
+  animation: fadeIn 1s 0.4s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes fadeIn { 0%{opacity:0;transform:translateY(10px);} 100%{opacity:1;transform:none;} }
+
+/* ══════════════════════════════════════════════════ */
+/*  DOWNLOAD BUTTON                                   */
+/* ══════════════════════════════════════════════════ */
+.btn-wrap { position:relative; margin-top:8px; }
+
+.btn {
+  position:relative;
+  display:inline-flex; align-items:center; gap:10px;
+  padding:16px 48px;
+  font-size:16px; font-weight:600; letter-spacing:1px;
+  color:#000; background:#fff;
+  border:none; border-radius:50px;
+  cursor:pointer; overflow:hidden;
+  transition: transform .25s, box-shadow .25s;
+  animation: btnGlow 2.5s ease-in-out infinite;
+}
+.btn:hover  { transform:translateY(-2px) scale(1.03); }
+.btn:active { transform:scale(0.97); }
+@keyframes btnGlow {
+  0%,100% { box-shadow:0 0 0 0 rgba(255,255,255,0.25); }
+  50%     { box-shadow:0 0 30px 4px rgba(255,255,255,0.18); }
+}
+
+.btn .ripple {
+  position:absolute; border-radius:50%;
+  background:rgba(0,0,0,0.15);
+  transform:scale(0); animation:ripple 0.7s ease-out forwards;
+  pointer-events:none;
+}
+@keyframes ripple { to { transform:scale(4); opacity:0; } }
+
+/* ── 按钮状态 ───────────────────────────── */
+.btn.downloading {
+  pointer-events:none; background:#333; color:#fff;
+  box-shadow:none; animation:none;
+}
+.btn.success {
+  pointer-events:none;
+  background:#fff; color:#000;
+  transform:scale(1); box-shadow:0 0 40px rgba(255,255,255,0.2);
+  animation: successPop 0.5s cubic-bezier(.16,1,.3,1) forwards;
+}
+@keyframes successPop {
+  0%   { transform:scale(1);   }
+  50%  { transform:scale(1.06);}
+  100% { transform:scale(1);   }
+}
+
+/* ── 进度条（下载中） ────────────────────────── */
+.progress-bar {
+  position:absolute; bottom:0; left:0; height:3px;
+  background:rgba(255,255,255,0.4);
+  width:0%; transition:width .15s linear;
+}
+
+/* ── 按钮内文字动画 ────────────────────────── */
+.btn-text { transition: opacity .3s; }
+.btn-icon { transition: transform .3s, opacity .3s; }
+
+/* ── 粒子爆发 ───────────────────────────── */
+.particle {
+  position:fixed; pointer-events:none; z-index:999;
+  width:6px; height:6px; border-radius:50%;
+  animation: particleBurst 0.8s cubic-bezier(0,1,.3,1) forwards;
+}
+@keyframes particleBurst {
+  0%   { transform:translate(0,0) scale(1);   opacity:1; }
+  100% { transform:translate(var(--x),var(--y)) scale(0); opacity:0; }
+}
+
+/* ── 返回提示 ───────────────────────────── */
+.hint {
+  position:fixed; bottom:28px; font-size:12px;
+  color:rgba(255,255,255,0.18); letter-spacing:1px; z-index:10;
+  animation: fadeIn 1s 0.8s cubic-bezier(.16,1,.3,1) both;
+}
+
+/* ── 备案号 ───────────────────────────── */
+.icp {
+  position:fixed; bottom:8px; font-size:11px; z-index:10;
+  animation: fadeIn 1s 1s cubic-bezier(.16,1,.3,1) both;
+}
+.icp a {
+  color:rgba(255,255,255,0.12); text-decoration:none;
+  transition:color .3s;
+}
+.icp a:hover { color:rgba(255,255,255,0.4); }
+
+/* ══════════════════════════════════════════════════ */
+/*  RESPONSIVE                                       */
+/* ══════════════════════════════════════════════════ */
+@media (max-width:480px) {
+  .name { font-size:22px; }
+  .subtitle { font-size:12px; letter-spacing:2px; }
+  .btn { padding:14px 36px; font-size:14px; }
+  .meta { gap:14px; font-size:11px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  BACKGROUND ANIMATION                       -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="bg-layer" id="bg"></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  MAIN CONTENT                               -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="page">
+  <!-- 图标 -->
+  <div class="icon-wrap">
+    <img class="icon-logo" src="/logo" alt="随行">
+  </div>
+
+  <!-- 名称 -->
+  <div class="name">随行</div>
+
+  <!-- 副标题 -->
+  <div class="subtitle">智能景区虚拟向导</div>
+
+  <!-- 版本信息 -->
+  <div class="meta" id="meta">
+    <span>v<span id="ver">—</span></span>
+    <span class="dot"></span>
+    <span id="size">— MB</span>
+  </div>
+
+  <!-- 变更日志 -->
+  <div class="changelog" id="changelog">加载中…</div>
+
+  <!-- 下载按钮 -->
+  <div class="btn-wrap">
+    <button class="btn" id="btn" onclick="handleDownload()">
+      <span class="btn-icon">⬇</span>
+      <span class="btn-text" id="btnLabel">立即下载</span>
+      <div class="progress-bar" id="progress"></div>
+    </button>
+  </div>
+
+</div>
+
+<div class="hint">软件杯 · 2026</div>
+<div class="icp"><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">吉ICP备2026003752号-2</a></div>
+
+<script>
+/* ══════════════════════════════════════════════════ */
+/*  BACKGROUND GENERATOR                             */
+/* ══════════════════════════════════════════════════ */
+(function genBg() {
+  const el = document.getElementById('bg');
+  const types = ['circle','square','triangle'];
+  for (let i=0; i<35; i++) {
+    const s = document.createElement('div');
+    const type = types[i % 3];
+    s.className = 'shape ' + type;
+    const size = 14 + Math.random() * 60;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      --dur:${6+Math.random()*12}s;
+      --delay:-${Math.random()*10}s;
+      --rot:${(Math.random()-0.5)*720}deg;
+      --o:${0.15+Math.random()*0.35};
+      --s:${size/2}px;
+    `;
+    el.appendChild(s);
+  }
+})();
+
+/* ══════════════════════════════════════════════════ */
+/*  DATA                                             */
+/* ══════════════════════════════════════════════════ */
+let apkData = null;
+
+async function loadInfo() {
+  try {
+    const r = await fetch('/api/apk/info');
+    const d = await r.json();
+    if (d.code === 200) apkData = d.data;
+  } catch(e) { apkData = null; }
+  renderInfo();
+}
+function renderInfo() {
+  if (!apkData) {
+    document.getElementById('ver').textContent = '—';
+    document.getElementById('size').textContent = '—';
+    document.getElementById('changelog').textContent = '无法加载版本信息';
+    return;
+  }
+  document.getElementById('ver').textContent = apkData.version;
+  document.getElementById('size').textContent = (apkData.size/1048576).toFixed(1)+' MB';
+  document.getElementById('changelog').textContent = apkData.changelog || '暂无更新日志';
+  if (!apkData.apk_exists) {
+    document.getElementById('btnLabel').textContent = '暂未发布';
+    document.getElementById('btn').style.pointerEvents = 'none';
+    document.getElementById('btn').style.opacity = '0.4';
+  }
+}
+
+/* ══════════════════════════════════════════════════ */
+/*  DOWNLOAD HANDLER                                  */
+/* ══════════════════════════════════════════════════ */
+async function handleDownload() {
+  const btn = document.getElementById('btn');
+  const label = document.getElementById('btnLabel');
+  const progress = document.getElementById('progress');
+  if (!apkData || !apkData.apk_exists) return;
+
+  // ── Ripple ──
+  const ripple = document.createElement('span');
+  ripple.className = 'ripple';
+  btn.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 700);
+
+  // ── Downloading state ──
+  btn.classList.add('downloading');
+  label.textContent = '下载中…';
+  let w = 0;
+  const sim = setInterval(() => {
+    w += (100-w) * 0.15 + 2;
+    if (w>90) w=90;
+    progress.style.width = w+'%';
+  }, 100);
+
+  try {
+    const resp = await fetch('/api/apk/download');
+    if (!resp.ok) throw new Error();
+    const blob = await resp.blob();
+
+    // ── Complete ──
+    clearInterval(sim);
+    progress.style.width = '100%';
+
+    setTimeout(() => {
+      btn.classList.remove('downloading');
+      btn.classList.add('success');
+      label.textContent = '✓ 下载完成';
+      burstParticles(btn);
+      // 触发浏览器下载
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'SoftwareCup-v'+apkData.version+'.apk';
+      document.body.appendChild(a); a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      // 刷新计数
+      setTimeout(loadInfo, 1500);
+      setTimeout(() => {
+        btn.classList.remove('success');
+        label.textContent = '立即下载';
+        progress.style.width = '0%';
+      }, 3000);
+    }, 300);
+
+  } catch(e) {
+    clearInterval(sim);
+    btn.classList.remove('downloading');
+    progress.style.width = '0%';
+    label.textContent = '重试';
+    setTimeout(() => { label.textContent = '立即下载'; }, 2000);
+  }
+}
+
+/* ══════════════════════════════════════════════════ */
+/*  PARTICLE BURST                                    */
+/* ══════════════════════════════════════════════════ */
+function burstParticles(src) {
+  const rect = src.getBoundingClientRect();
+  const cx = rect.left + rect.width/2, cy = rect.top + rect.height/2;
+  const colors = ['#fff','#ccc','#999','#666','#fff'];
+  for (let i=0; i<30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const angle = Math.random()*Math.PI*2;
+    const dist  = 40 + Math.random()*120;
+    p.style.cssText = `
+      left:${cx}px; top:${cy}px;
+      width:${3+Math.random()*5}px; height:${3+Math.random()*5}px;
+      background:${colors[Math.floor(Math.random()*5)]};
+      --x:${Math.cos(angle)*dist}px;
+      --y:${Math.sin(angle)*dist}px;
+    `;
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 800);
+  }
+}
+
+/* ══════════════════════════════════════════════════ */
+/*  INIT                                              */
+/* ══════════════════════════════════════════════════ */
+loadInfo();
+</script>
+</body>
+</html>

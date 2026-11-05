@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.SuiXing" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
+    <!-- 启动屏：splashscreen 库接管 -->
+    <style name="Theme.SuiXing.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#2dba98</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/Theme.SuiXing</item>
+        <item name="android:windowSplashScreenBehavior" tools:targetApi="34">icon_preferred</item>
+    </style>
+
+</resources>

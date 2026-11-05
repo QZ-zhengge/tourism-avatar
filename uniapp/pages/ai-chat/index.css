@@ -1,0 +1,739 @@
+/* ========== AI聊天页面 - 豆包风格 ========== */
+.ai-chat-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ========== 侧边栏遮罩 ========== */
+.sidebar-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.sidebar-mask--show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ========== 侧边栏 ========== */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 75%;
+  max-width: 320px;
+  background: #fff;
+  z-index: 300;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.36, 0.66, 0.04, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4rpx 0 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.sidebar--show {
+  transform: translateX(0);
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(40rpx + env(safe-area-inset-top)) 28rpx 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.sidebar-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #333;
+}
+
+.sidebar-close {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  color: #999;
+}
+
+.sidebar-list {
+  flex: 1;
+  padding: 16rpx 0;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 20rpx 28rpx;
+  margin: 0 16rpx;
+  border-radius: 16rpx;
+}
+
+.history-item--active {
+  background: #f0f7ff;
+}
+
+.history-icon {
+  font-size: 36rpx;
+  flex-shrink: 0;
+}
+
+.history-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.history-title {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.history-time {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.history-empty {
+  padding: 80rpx 0;
+  text-align: center;
+  font-size: 26rpx;
+  color: #ccc;
+}
+
+.sidebar-footer {
+  padding: 20rpx 28rpx calc(20rpx + env(safe-area-inset-bottom));
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.new-chat-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  padding: 24rpx;
+  background: #f5f5f5;
+  border-radius: 16rpx;
+}
+
+.new-chat-icon {
+  font-size: 32rpx;
+  color: #2dba98;
+}
+
+.new-chat-text {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+/* ========== 顶部导航栏 ========== */
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+  padding-bottom: 16rpx;
+  background: #fff;
+  border-bottom: 1rpx solid #f0f0f0;
+  flex-shrink: 0;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  width: 160rpx;
+}
+
+.back-btn {
+  width: 88rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  padding-left: 8rpx;
+}
+
+.back-arrow {
+  font-size: 44rpx;
+  color: #333;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.menu-btn {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8rpx;
+}
+
+.menu-line {
+  height: 4rpx;
+  background: #333;
+  border-radius: 2rpx;
+}
+
+.menu-line:nth-child(1) { width: 32rpx; }
+.menu-line:nth-child(2) { width: 24rpx; }
+.menu-line:nth-child(3) { width: 28rpx; }
+
+.header-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.header-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #333;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  width: 80rpx;
+  justify-content: flex-end;
+}
+
+.header-icon-btn {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-icon {
+  font-size: 36rpx;
+}
+
+/* ========== 聊天内容区 ========== */
+.chat-content {
+  flex: 1;
+  padding: 0 24rpx;
+  overflow-y: auto;
+}
+
+/* 欢迎语 */
+.welcome-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 140rpx 0 60rpx;
+}
+
+.welcome-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  background: #e8f5e9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20rpx;
+}
+
+.welcome-text {
+  font-size: 28rpx;
+  color: #666;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* 消息项 */
+.message-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
+}
+
+.message-user {
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.msg-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background: #f0f7ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.msg-avatar--user {
+  background: #e8f4fd;
+}
+
+.msg-bubble {
+  max-width: 72%;
+  padding: 20rpx 24rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  word-break: break-all;
+  line-height: 1.6;
+  border: 1rpx solid #f0f0f0;
+}
+
+.message-ai .msg-bubble {
+  border-bottom-left-radius: 4rpx;
+}
+
+.message-user .msg-bubble {
+  background: #e8f4fd;
+  border-color: #d0e8f9;
+  border-bottom-right-radius: 4rpx;
+}
+
+.message-user .msg-text {
+  color: #1a3a5c;
+}
+
+.msg-text {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+/* 正在输入动画 */
+.msg-bubble--typing {
+  padding: 20rpx 32rpx;
+}
+
+.typing-dots {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.typing-dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background: #ccc;
+  animation: typingBlink 1.4s infinite;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typingBlink {
+  0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); }
+  30% { opacity: 1; transform: scale(1); }
+}
+
+/* 建议问题 */
+.suggestion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  padding: 0 0 24rpx;
+}
+
+.suggestion-item {
+  align-self: flex-start;
+  padding: 16rpx 28rpx;
+  background: #fff;
+  border-radius: 32rpx;
+  border: 1rpx solid #e0e0e0;
+}
+
+.suggestion-item text {
+  font-size: 26rpx;
+  color: #333;
+}
+
+/* 底部留白 */
+.chat-bottom-space {
+  height: 20rpx;
+}
+
+/* ========== 底部快捷功能区 ========== */
+.quick-actions {
+  flex-shrink: 0;
+  padding: 12rpx 0;
+  background: #f5f5f5;
+}
+
+.quick-scroll {
+  white-space: nowrap;
+  padding: 0 24rpx;
+}
+
+.quick-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 12rpx 24rpx;
+  background: #fff;
+  border-radius: 32rpx;
+  margin-right: 16rpx;
+  border: 1rpx solid #e0e0e0;
+  height: 56rpx;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
+.quick-icon {
+  font-size: 28rpx;
+}
+
+.quick-text {
+  font-size: 24rpx;
+  color: #333;
+}
+
+/* ========== 输入框区域 ========== */
+.input-area {
+  flex-shrink: 0;
+  padding: 16rpx 24rpx;
+  background: #f5f5f5;
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  background: #fff;
+  border-radius: 40rpx;
+  padding: 12rpx 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.input-icon-btn {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.input-icon-btn--send {
+  background: #2dba98;
+  border-radius: 50%;
+}
+
+.input-icon {
+  font-size: 36rpx;
+  color: #666;
+}
+
+.input-icon--send {
+  color: #fff;
+  font-weight: 700;
+}
+
+.input-field {
+  flex: 1;
+  height: 64rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.input-placeholder {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 语音提示 */
+.voice-hint {
+  text-align: center;
+  padding: 16rpx 0 0;
+}
+
+.voice-hint text {
+  font-size: 24rpx;
+  color: #2dba98;
+}
+
+/* 底部安全区 */
+.safe-bottom {
+  height: env(safe-area-inset-bottom);
+  background: #f5f5f5;
+  flex-shrink: 0;
+}
+
+/* ========== 美团风格酒店卡片列表 ========== */
+.hl-container {
+  margin-top: 12rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.hl-card {
+  background: #fff;
+  border-radius: 20rpx;
+  border: 1rpx solid #f0f0f0;
+  overflow: hidden;
+}
+
+.hl-top {
+  display: flex;
+  gap: 16rpx;
+  padding: 16rpx;
+}
+
+.hl-img {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 12rpx;
+  flex-shrink: 0;
+  background: #f5f5f5;
+}
+
+.hl-img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8f4fd;
+}
+
+.hl-img-letter {
+  font-size: 56rpx;
+  color: #4a90d9;
+  font-weight: 700;
+}
+
+.hl-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  justify-content: center;
+  min-width: 0;
+}
+
+.hl-name {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hl-meta {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  flex-wrap: wrap;
+}
+
+.hl-rating {
+  font-size: 22rpx;
+  color: #f5a623;
+  font-weight: 600;
+}
+
+.hl-distance {
+  font-size: 22rpx;
+  color: #888;
+}
+
+.hl-price {
+  font-size: 32rpx;
+  color: #e74c3c;
+  font-weight: 700;
+}
+
+.hl-actions {
+  display: flex;
+  gap: 12rpx;
+  padding: 0 16rpx 16rpx;
+}
+
+.hl-btn {
+  flex: 1;
+  height: 64rpx;
+  border-radius: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.hl-btn-primary {
+  background: #2dba98;
+  color: #fff;
+}
+
+.hl-btn-secondary {
+  background: #f5f7fa;
+  color: #333;
+  border: 1rpx solid #e0e0e0;
+}
+
+/* ========== 千问风格预订卡片（内嵌在消息气泡中）========== */
+.card-booking {
+  margin-top: 12rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  border: 1rpx solid #f0f0f0;
+  overflow: hidden;
+}
+
+/* 顶部信息区：左图右文 */
+.cb-top {
+  display: flex;
+  gap: 20rpx;
+  padding: 20rpx;
+  background: #fafafa;
+}
+
+.cb-img {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cb-img-text {
+  font-size: 48rpx;
+  color: #fff;
+  font-weight: 700;
+}
+
+.cb-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  justify-content: center;
+  min-width: 0;
+}
+
+.cb-title-input {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+  height: 48rpx;
+  line-height: 48rpx;
+  background: transparent;
+  padding: 0;
+}
+
+.cb-sub-input {
+  font-size: 24rpx;
+  color: #666;
+  height: 40rpx;
+  line-height: 40rpx;
+  background: transparent;
+  padding: 0;
+}
+
+.cb-price-input {
+  font-size: 32rpx;
+  color: #e74c3c;
+  font-weight: 700;
+  height: 48rpx;
+  line-height: 48rpx;
+  background: transparent;
+  padding: 0;
+}
+
+/* 表单区 */
+.cb-form {
+  padding: 16rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.cb-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.cb-label {
+  width: 72rpx;
+  font-size: 24rpx;
+  color: #999;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.cb-input {
+  flex: 1;
+  height: 60rpx;
+  background: #f8f9fa;
+  border-radius: 10rpx;
+  padding: 0 16rpx;
+  font-size: 26rpx;
+  color: #333;
+}
+
+/* 操作按钮 */
+.cb-actions {
+  padding: 12rpx 20rpx 20rpx;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cb-btn {
+  padding: 14rpx 32rpx;
+  border-radius: 28rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.cb-confirm {
+  background: #2dba98;
+  color: #fff;
+}
+
+.cb-confirmed {
+  padding: 16rpx 20rpx;
+  text-align: center;
+}
+
+.cb-confirmed-text {
+  font-size: 26rpx;
+  color: #2dba98;
+  font-weight: 600;
+}

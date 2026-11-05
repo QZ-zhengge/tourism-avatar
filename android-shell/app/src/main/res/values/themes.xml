@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Uniapp_box" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#2DBA98</item>
+        <item name="colorPrimaryVariant">#2DBA98</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorSecondary">#2DBA98</item>
+        <item name="colorOnSecondary">@android:color/white</item>
+        <item name="android:statusBarColor">#F5F5F5</item>
+    </style>
+</resources>

@@ -1,0 +1,460 @@
+.page {
+  height: 100vh;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ===== 通用导航栏 ===== */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20rpx;
+  background: transparent;
+  flex-shrink: 0;
+  z-index: 100;
+  position: relative;
+}
+.nav-back {
+  width: 72rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.back-icon {
+  font-size: 36rpx;
+  font-weight: 300;
+  color: #fff;
+}
+.nav-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #fff;
+  flex: 1;
+  text-align: center;
+}
+.nav-right-placeholder {
+  width: 72rpx;
+}
+
+/* ==================== 阶段1：相机 ==================== */
+.camera-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: #000;
+}
+
+.camera-preview-area {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.camera-preview {
+  width: 100%;
+  height: 100%;
+}
+
+/* 顶部控制栏 */
+.camera-top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 30rpx;
+  z-index: 10;
+}
+.camera-top-btn {
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+}
+.camera-top-btn:active {
+  background: rgba(0,0,0,0.5);
+}
+.top-btn-text {
+  font-size: 32rpx;
+  color: #fff;
+}
+.camera-flash-label {
+  font-size: 22rpx;
+  color: rgba(255,255,255,0.8);
+  background: rgba(0,0,0,0.3);
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+/* 底部操作栏 */
+.camera-bottom-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 30rpx 50rpx 50rpx;
+  z-index: 10;
+}
+.camera-bottom-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+.camera-bottom-btn-text {
+  font-size: 22rpx;
+  color: rgba(255,255,255,0.8);
+}
+.shutter-btn {
+  width: 130rpx;
+  height: 130rpx;
+  border-radius: 50%;
+  border: 6rpx solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.shutter-btn-inner {
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 50%;
+  background: #fff;
+}
+.shutter-btn:active .shutter-btn-inner {
+  background: #ddd;
+}
+.album-btn {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 16rpx;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.album-btn-icon {
+  font-size: 40rpx;
+  color: #fff;
+}
+
+/* 底部文字提示 */
+.camera-hint {
+  position: absolute;
+  bottom: 210rpx;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 10;
+}
+.camera-hint-text {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.7);
+}
+
+/* ==================== 阶段2：裁剪 ==================== */
+.crop-stage {
+  flex: 1;
+  position: relative;
+  background: #1a1a1a;
+  overflow: hidden;
+}
+
+.crop-image-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.crop-image {
+  position: absolute;
+}
+
+/* 裁剪框 */
+.crop-box {
+  position: absolute;
+  border: 3rpx solid rgba(255,255,255,0.9);
+  z-index: 20;
+}
+.crop-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 0 0 9999rpx rgba(0,0,0,0.5);
+}
+
+/* 裁剪框四角手柄 */
+.crop-handle {
+  position: absolute;
+  width: 28rpx;
+  height: 28rpx;
+  border-radius: 50%;
+  background: #fff;
+  border: 3rpx solid rgba(0,0,0,0.3);
+  z-index: 25;
+}
+.crop-handle-tl { left: -14rpx; top: -14rpx; }
+.crop-handle-tr { right: -14rpx; top: -14rpx; }
+.crop-handle-bl { left: -14rpx; bottom: -14rpx; }
+.crop-handle-br { right: -14rpx; bottom: -14rpx; }
+
+/* 裁剪框内三条参考线 */
+.crop-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 22;
+  pointer-events: none;
+}
+.crop-grid-h1, .crop-grid-h2,
+.crop-grid-v1, .crop-grid-v2 {
+  position: absolute;
+  background: rgba(255,255,255,0.2);
+}
+.crop-grid-h1, .crop-grid-h2 {
+  left: 0; right: 0;
+  height: 1rpx;
+}
+.crop-grid-h1 { top: 33.33%; }
+.crop-grid-h2 { top: 66.66%; }
+.crop-grid-v1, .crop-grid-v2 {
+  top: 0; bottom: 0;
+  width: 1rpx;
+}
+.crop-grid-v1 { left: 33.33%; }
+.crop-grid-v2 { left: 66.66%; }
+
+/* 裁剪底部按钮 */
+.crop-bottom-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40rpx;
+  padding: 30rpx 50rpx 50rpx;
+  background: rgba(0,0,0,0.6);
+  z-index: 30;
+}
+.crop-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  padding: 16rpx 24rpx;
+  background: rgba(255,255,255,0.1);
+  border-radius: 16rpx;
+  min-width: 130rpx;
+}
+.crop-action-btn:active {
+  background: rgba(255,255,255,0.2);
+}
+.crop-action-icon {
+  font-size: 32rpx;
+}
+.crop-action-text {
+  font-size: 22rpx;
+  color: rgba(255,255,255,0.85);
+}
+
+.crop-confirm-btn {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 16rpx 32rpx;
+  background: rgba(45,186,152,0.9);
+  border-radius: 16rpx;
+}
+.crop-confirm-btn:active {
+  background: rgba(45,186,152,1);
+}
+.crop-confirm-icon {
+  font-size: 28rpx;
+}
+.crop-confirm-text {
+  font-size: 24rpx;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* ==================== 阶段3：识别结果 ==================== */
+.result-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+  position: relative;
+}
+
+/* 顶部图片预览 */
+.result-image-area {
+  width: 100%;
+  height: 360rpx;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.result-image {
+  width: 100%;
+  height: 100%;
+}
+.result-image-mask {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.8) 100%);
+}
+.result-image-label {
+  position: absolute;
+  bottom: 20rpx;
+  left: 30rpx;
+  font-size: 26rpx;
+  color: #fff;
+  font-weight: 500;
+}
+.result-image-badge {
+  position: absolute;
+  bottom: 20rpx;
+  right: 30rpx;
+  font-size: 20rpx;
+  color: #fff;
+  background: rgba(45,186,152,0.85);
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+/* 文字结果区域 */
+.result-text-area {
+  flex: 1;
+  padding: 24rpx 30rpx;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.result-text-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200rpx;
+  gap: 16rpx;
+}
+.result-loading-spinner {
+  width: 48rpx;
+  height: 48rpx;
+  border: 4rpx solid rgba(45,186,152,0.3);
+  border-top-color: #2dba98;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.result-loading-text {
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.6);
+}
+
+.result-text-content {
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+/* 语音播放控制区 */
+.audio-control-area {
+  flex-shrink: 0;
+  padding: 16rpx 30rpx 24rpx;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  border-top: 1rpx solid rgba(255,255,255,0.1);
+}
+
+.play-btn {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2dba98, #1a9a7a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4rpx 16rpx rgba(45,186,152,0.4);
+}
+.play-btn:active {
+  opacity: 0.85;
+}
+.play-btn-icon {
+  font-size: 36rpx;
+  color: #fff;
+}
+
+/* 语音波形 */
+.wave-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 60rpx;
+  gap: 4rpx;
+  overflow: hidden;
+}
+.wave-bar {
+  width: 6rpx;
+  border-radius: 3rpx;
+  transition: height 0.12s ease;
+}
+.wave-bar--active {
+  background: #2dba98;
+}
+.wave-bar--inactive {
+  background: rgba(45,186,152,0.25);
+}
+
+.audio-time {
+  font-size: 22rpx;
+  color: rgba(255,255,255,0.5);
+  flex-shrink: 0;
+  min-width: 70rpx;
+  text-align: right;
+}
+
+/* 底部操作按钮 */
+.result-bottom-bar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 16rpx 40rpx 36rpx;
+  border-top: 1rpx solid rgba(255,255,255,0.08);
+}
+.result-bottom-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6rpx;
+  padding: 12rpx 24rpx;
+}
+.result-bottom-btn:active {
+  opacity: 0.7;
+}
+.result-bottom-icon {
+  font-size: 36rpx;
+}
+.result-bottom-label {
+  font-size: 20rpx;
+  color: rgba(255,255,255,0.6);
+}

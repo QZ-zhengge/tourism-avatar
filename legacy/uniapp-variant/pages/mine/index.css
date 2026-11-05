@@ -1,0 +1,964 @@
+/* ========== 个人中心页面 ========== */
+.mine-page {
+  min-height: 100vh;
+  background: #f0f4f8;
+  padding-bottom: calc(160rpx + env(safe-area-inset-bottom));
+}
+
+/* ========== 顶部用户信息区 ========== */
+.user-header {
+  position: relative;
+  padding: calc(60rpx + env(safe-area-inset-top)) 28rpx 0;
+  overflow: hidden;
+}
+
+.header-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 360rpx;
+  background: linear-gradient(148deg, #0d3d5c 0%, #1a5f8a 45%, #2e9eca 100%);
+  border-radius: 0 0 48rpx 48rpx;
+}
+
+/* 用户卡片 */
+.user-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 28rpx;
+  padding: 32rpx;
+  margin-top: 60rpx;
+  box-shadow: 0 16rpx 40rpx rgba(13, 61, 92, 0.18);
+  z-index: 1;
+}
+
+.avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  border: 5rpx solid #e0f2fe;
+  background: #f0f0f0;
+}
+
+.avatar-level {
+  position: absolute;
+  bottom: -6rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 16rpx;
+  font-weight: 800;
+  padding: 3rpx 14rpx;
+  border-radius: 20rpx;
+  white-space: nowrap;
+}
+
+.user-info {
+  flex: 1;
+  margin-left: 28rpx;
+}
+
+.nickname-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 10rpx;
+}
+
+.nickname {
+  font-size: 38rpx;
+  font-weight: 800;
+  color: #0d3d5c;
+}
+
+.vip-badge {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  background: linear-gradient(135deg, #4ac7ff, #2dba98);
+  border-radius: 20rpx;
+  padding: 4rpx 12rpx;
+}
+
+.vip-icon {
+  font-size: 14rpx;
+  color: #fff;
+}
+
+.vip-text {
+  font-size: 16rpx;
+  color: #fff;
+  font-weight: 700;
+}
+
+.scenic-row {
+  display: flex;
+  align-items: center;
+}
+
+.scenic-text {
+  font-size: 22rpx;
+  color: #7090a1;
+}
+
+.login-hint {
+  font-size: 26rpx;
+  color: #7090a1;
+}
+
+.edit-btn {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background: #f0f7fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-icon {
+  font-size: 30rpx;
+  color: #4ac7ff;
+}
+
+/* 统计数据栏 */
+.stats-bar {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 24rpx 8rpx;
+  margin: 20rpx 0;
+  box-shadow: 0 8rpx 28rpx rgba(13, 61, 92, 0.1);
+  z-index: 1;
+  position: relative;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 42rpx;
+  font-weight: 800;
+  color: #0d3d5c;
+  margin-bottom: 4rpx;
+}
+
+.stat-label {
+  font-size: 20rpx;
+  color: #94a8b8;
+}
+
+.stat-divider {
+  width: 1rpx;
+  height: 48rpx;
+  background: #e8f2f8;
+}
+
+/* 未登录提示 */
+.guest-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  background: rgba(255,255,255,0.18);
+  border-radius: 24rpx;
+  padding: 20rpx;
+  margin: 20rpx 0;
+  backdrop-filter: blur(8rpx);
+  z-index: 1;
+  position: relative;
+}
+
+.guest-text {
+  font-size: 26rpx;
+  color: #fff;
+  font-weight: 500;
+}
+
+.guest-arrow {
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.8);
+}
+
+/* ========== 通用卡片区块 ========== */
+.section-card {
+  margin: 0 24rpx 24rpx;
+  background: #fff;
+  border-radius: 28rpx;
+  padding: 28rpx;
+  box-shadow: 0 8rpx 28rpx rgba(13, 61, 92, 0.08);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #0d3d5c;
+}
+
+.section-more {
+  font-size: 24rpx;
+  color: #94a8b8;
+}
+
+/* ========== 点亮城市地图 ========== */
+.map-card {
+  padding: 20rpx;
+  position: relative;
+}
+
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.map-title-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.map-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #0d3d5c;
+}
+
+.map-subtitle {
+  font-size: 20rpx;
+  color: #2dba98;
+  font-weight: 600;
+}
+
+.map-controls {
+  display: flex;
+  gap: 12rpx;
+}
+
+.map-btn {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: #f0f4f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid #e0e8f0;
+}
+
+.map-btn:active {
+  background: #e0e8f0;
+}
+
+.map-btn-text {
+  font-size: 36rpx;
+  color: #0d3d5c;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* 地图容器 */
+.map-container {
+  width: 100%;
+  height: 420rpx;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(180deg, #f0f7fa 0%, #e8f4f8 100%);
+  border-radius: 20rpx;
+  touch-action: none;
+}
+
+.map-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center center;
+  transition: transform 0.1s ease-out;
+}
+
+/* 中国地图 SVG */
+.china-map {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+}
+
+.province {
+  fill: #e8eef5;
+  stroke: #fff;
+  stroke-width: 1.5;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.province:hover {
+  fill: #d0dce8;
+}
+
+.province.visited {
+  fill: #2e9eca;
+  stroke: #1a5f8a;
+  stroke-width: 2;
+}
+
+.province.visited:hover {
+  fill: #3ab0db;
+}
+
+.province.hongkong,
+.province.taiwan {
+  stroke: #ccc;
+}
+
+/* 省份详情弹窗 */
+.province-detail {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 20rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  border-radius: 0 0 28rpx 28rpx;
+  z-index: 100;
+}
+
+.province-card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 28rpx;
+}
+
+.province-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.province-name {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #0d3d5c;
+}
+
+.province-close {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  background: #f0f4f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: #7090a1;
+}
+
+.province-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20rpx;
+  padding: 20rpx 0;
+  background: #f8fafc;
+  border-radius: 16rpx;
+}
+
+.pstat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.pstat-num {
+  font-size: 38rpx;
+  font-weight: 800;
+  color: #2e9eca;
+}
+
+.pstat-label {
+  font-size: 20rpx;
+  color: #7090a1;
+}
+
+.city-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.city-tag {
+  padding: 8rpx 18rpx;
+  background: linear-gradient(135deg, #2e9eca, #1a5f8a);
+  color: #fff;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+}
+
+.province-empty {
+  text-align: center;
+  padding: 20rpx;
+  color: #94a8b8;
+  font-size: 26rpx;
+}
+
+.province-hint {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: #2e9eca;
+}
+
+/* 地图底部统计 */
+.map-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid #f0f4f8;
+}
+
+.map-legend {
+  display: flex;
+  gap: 20rpx;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.legend-dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+}
+
+.legend-dot.lit {
+  background: #2e9eca;
+}
+
+.legend-dot.unlit {
+  background: #e0e8f0;
+}
+
+.legend-text {
+  font-size: 20rpx;
+  color: #7090a1;
+}
+
+.map-tip {
+  font-size: 20rpx;
+  color: #94a8b8;
+}
+
+/* ========== 年度旅行报告 ========== */
+.report-card {
+  background: linear-gradient(148deg, #0d3d5c, #1a5f8a);
+  color: #fff;
+}
+
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.report-year {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #fff;
+}
+
+.report-compare {
+  font-size: 20rpx;
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.15);
+  padding: 4rpx 14rpx;
+  border-radius: 20rpx;
+}
+
+.report-stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.report-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.report-num {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 4rpx;
+}
+
+.report-label {
+  font-size: 18rpx;
+  color: rgba(255,255,255,0.65);
+}
+
+.report-divider {
+  width: 1rpx;
+  height: 56rpx;
+  background: rgba(255,255,255,0.2);
+}
+
+/* ========== 环保出行统计 ========== */
+.eco-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.eco-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.eco-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #0d3d5c;
+}
+
+.eco-tag {
+  font-size: 20rpx;
+  color: #2dba98;
+  background: #e8f8f5;
+  padding: 4rpx 14rpx;
+  border-radius: 20rpx;
+  font-weight: 600;
+}
+
+.eco-content {
+  display: flex;
+  align-items: center;
+  gap: 28rpx;
+}
+
+.eco-circle {
+  flex-shrink: 0;
+}
+
+.eco-circle-inner {
+  width: 130rpx;
+  height: 130rpx;
+  border-radius: 50%;
+  border: 8rpx solid #2e9eca;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f0faf8;
+}
+
+.eco-rank {
+  font-size: 28rpx;
+  font-weight: 800;
+  color: #0d3d5c;
+}
+
+.eco-rank-label {
+  font-size: 16rpx;
+  color: #7090a1;
+}
+
+.eco-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.eco-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.eco-label {
+  font-size: 24rpx;
+  color: #7090a1;
+}
+
+.eco-value {
+  font-size: 24rpx;
+  color: #0d3d5c;
+  font-weight: 600;
+}
+
+.eco-row-highlight {
+  background: #f0faf8;
+  padding: 8rpx 12rpx;
+  border-radius: 10rpx;
+  margin-top: 4rpx;
+}
+
+/* ========== 菜单列表区 ========== */
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24rpx;
+}
+
+.quick-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10rpx;
+  position: relative;
+}
+
+.quick-icon-wrap {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quick-icon {
+  font-size: 44rpx;
+}
+
+.quick-name {
+  font-size: 22rpx;
+  color: #0d3d5c;
+  font-weight: 500;
+}
+
+.quick-badge {
+  position: absolute;
+  top: -4rpx;
+  right: 4rpx;
+  min-width: 32rpx;
+  height: 32rpx;
+  border-radius: 16rpx;
+  background: #ff4d4f;
+  color: #fff;
+  font-size: 18rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6rpx;
+}
+
+/* ========== 菜单列表区 ========== */
+.menu-section {
+  padding: 0 24rpx;
+}
+
+.menu-group {
+  margin-bottom: 24rpx;
+}
+
+.group-title {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #94a8b8;
+  padding: 0 8rpx;
+  margin-bottom: 12rpx;
+}
+
+.menu-list {
+  background: #fff;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 8rpx 28rpx rgba(13, 61, 92, 0.08);
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28rpx 24rpx;
+  border-bottom: 1rpx solid #f0f4f8;
+  transition: background 0.15s;
+}
+
+.menu-item:active {
+  background: #f8fafc;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-left {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.menu-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 18rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+}
+
+.menu-name {
+  font-size: 30rpx;
+  color: #0d3d5c;
+  font-weight: 500;
+}
+
+.menu-right {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.menu-badge {
+  font-size: 22rpx;
+  color: #7090a1;
+  background: #f0f4f8;
+  padding: 4rpx 14rpx;
+  border-radius: 20rpx;
+}
+
+.menu-arrow {
+  font-size: 36rpx;
+  color: #c0cdd8;
+  font-weight: 300;
+}
+
+/* ========== 底部功能区 ========== */
+.bottom-actions {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  margin: 24rpx;
+  border-radius: 24rpx;
+  padding: 8rpx 24rpx;
+  box-shadow: 0 8rpx 28rpx rgba(13, 61, 92, 0.08);
+}
+
+.action-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  padding: 20rpx;
+}
+
+.action-icon {
+  font-size: 30rpx;
+}
+
+.action-text {
+  font-size: 26rpx;
+  color: #0d3d5c;
+  font-weight: 500;
+}
+
+.action-divider {
+  width: 1rpx;
+  height: 40rpx;
+  background: #e8f2f8;
+}
+
+.logout-icon {
+  color: #ff6b6b;
+}
+
+.logout-text {
+  color: #ff6b6b;
+}
+
+/* ========== 版本信息 ========== */
+.version-info {
+  text-align: center;
+  padding: 16rpx;
+}
+
+.version-info text {
+  font-size: 22rpx;
+  color: #c0cdd8;
+}
+
+/* ========== 打卡记录弹窗 ========== */
+.mine-modal-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.mine-checkin-modal {
+  width: 100%;
+  background: #fff;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 32rpx 32rpx 0;
+  box-sizing: border-box;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mine-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.mine-modal-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #333;
+}
+
+.mine-modal-close {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: #999;
+}
+
+.mine-records-scroll {
+  flex: 1;
+  max-height: 56vh;
+}
+
+.mine-empty-records {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 0;
+  gap: 16rpx;
+}
+
+.mine-empty-icon {
+  font-size: 80rpx;
+}
+
+.mine-empty-text {
+  font-size: 28rpx;
+  color: #666;
+  font-weight: 500;
+}
+
+.mine-empty-hint {
+  font-size: 24rpx;
+  color: #aaa;
+}
+
+.mine-record-item {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.mine-rec-photo-wrap {
+  flex-shrink: 0;
+  width: 120rpx;
+  height: 90rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.mine-rec-photo {
+  width: 100%;
+  height: 100%;
+}
+
+.mine-rec-photo-empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mine-rec-photo-letter {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.mine-rec-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.mine-rec-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.mine-rec-time {
+  font-size: 22rpx;
+  color: #aaa;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.mine-rec-note {
+  font-size: 22rpx;
+  color: #666;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mine-go-checkin {
+  padding: 24rpx 0 calc(24rpx + env(safe-area-inset-bottom));
+  text-align: center;
+  font-size: 28rpx;
+  color: #6c5ce7;
+  font-weight: 500;
+  border-top: 1rpx solid #f0f0f0;
+}

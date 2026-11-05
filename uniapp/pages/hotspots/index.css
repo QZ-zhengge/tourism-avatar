@@ -1,0 +1,419 @@
+.page {
+  min-height: 100vh;
+  background: #f5f7fa;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: border-box;
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+  padding-bottom: 0;
+  background: #ffffff;
+  color: #333;
+  border-bottom: 1rpx solid #f0f0f0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+.nav-back {
+  width: 88rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  padding-left: 8rpx;
+}
+
+.back-icon {
+  font-size: 44rpx;
+  font-weight: 600;
+  color: #333;
+  line-height: 1;
+}
+
+.nav-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  flex: 1;
+  text-align: center;
+}
+
+.nav-placeholder {
+  width: 88rpx;
+  flex-shrink: 0;
+}
+
+.tag-scroll {
+  background: #fff;
+  padding: 20rpx 24rpx;
+  white-space: nowrap;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.tag-item {
+  display: inline-block;
+  padding: 10rpx 28rpx;
+  margin-right: 16rpx;
+  font-size: 26rpx;
+  color: #666;
+  background: #f5f5f5;
+  border-radius: 30rpx;
+}
+
+.tag-item.active {
+  color: #fff;
+  background: #333;
+  font-weight: 500;
+}
+
+.content-scroll {
+  flex: 1;
+  min-height: 0;
+}
+
+.loading-wrap,
+.empty-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 0;
+}
+
+.loading-text,
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.no-more-wrap {
+  text-align: center;
+  padding: 30rpx 0;
+}
+
+.no-more-text {
+  font-size: 24rpx;
+  color: #ccc;
+}
+
+.spot-list {
+  padding: 24rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.spot-card {
+  background: #fff;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+
+.spot-cover {
+  width: 100%;
+  height: 360rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.cover-letter {
+  font-size: 72rpx;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.2);
+}
+
+.cover-letter-big {
+  font-size: 96rpx;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.3);
+}
+
+.detail-cover {
+  width: 100%;
+  height: 480rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spot-info {
+  padding: 24rpx;
+}
+
+.spot-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+
+.spot-name {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+/* ========== 标签只显示一行 ========== */
+.spot-tags-line {
+  display: flex;
+  gap: 8rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom: 12rpx;
+}
+
+.spot-tag {
+  font-size: 20rpx;
+  color: #888;
+  background: #f5f5f5;
+  padding: 4rpx 14rpx;
+  border-radius: 20rpx;
+  flex-shrink: 0;
+  max-width: 120rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spot-desc {
+  font-size: 26rpx;
+  color: #888;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ========== 景点详情页 ========== */
+.detail-page {
+  min-height: 100vh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+  padding-bottom: 0;
+  background: #fff;
+  border-bottom: 1rpx solid #f0f0f0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+.detail-scroll {
+  flex: 1;
+  min-height: 0;
+}
+
+.detail-cover {
+  width: 100%;
+  height: 480rpx;
+  background: #f0f0f0;
+}
+
+.detail-body {
+  padding: 32rpx;
+}
+
+.detail-name {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-bottom: 24rpx;
+}
+
+.detail-tag {
+  font-size: 22rpx;
+  color: #555;
+  background: #f0f0f0;
+  padding: 6rpx 20rpx;
+  border-radius: 24rpx;
+}
+
+.detail-summary {
+  font-size: 28rpx;
+  color: #555;
+  line-height: 1.8;
+}
+
+/* ========== 小红书风格详情 ========== */
+.detail-author {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 32rpx 20rpx;
+  gap: 20rpx;
+}
+
+.author-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background: #ffece5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.author-avatar-text {
+  font-size: 32rpx;
+}
+
+.author-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.author-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  display: block;
+}
+
+.author-meta {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.detail-actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 24rpx 32rpx 32rpx;
+  border-top: 1rpx solid #f0f0f0;
+  margin-top: 20rpx;
+}
+
+.detail-action-item {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.action-icon {
+  font-size: 28rpx;
+}
+
+.action-count {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.detail-bottom-space {
+  height: 60rpx;
+}
+
+/* ========== 结构化段落 ========== */
+.detail-section {
+  margin-bottom: 20rpx;
+}
+
+.section-label {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.section-text {
+  font-size: 28rpx;
+  color: #555;
+  line-height: 1.8;
+  display: block;
+}
+
+/* ========== 功能态 ========== */
+.action-icon--active {
+  transform: scale(1.15);
+}
+
+/* ========== 评论输入框 ========== */
+.comment-overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+}
+
+.comment-box {
+  background: #fff;
+  width: 100%;
+  padding: 24rpx 32rpx calc(24rpx + env(safe-area-inset-bottom));
+  border-radius: 24rpx 24rpx 0 0;
+}
+
+.comment-input {
+  width: 100%;
+  min-height: 120rpx;
+  font-size: 28rpx;
+  background: #f5f5f5;
+  border-radius: 16rpx;
+  padding: 16rpx;
+  box-sizing: border-box;
+}
+
+.comment-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 24rpx;
+  margin-top: 16rpx;
+}
+
+.comment-cancel {
+  font-size: 28rpx;
+  color: #999;
+  padding: 12rpx 24rpx;
+}
+
+.comment-submit {
+  font-size: 28rpx;
+  color: #fff;
+  background: #ff2442;
+  padding: 12rpx 36rpx;
+  border-radius: 12rpx;
+}
+
+.comment-submit.disabled {
+  opacity: 0.4;
+}

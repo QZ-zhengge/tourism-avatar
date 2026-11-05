@@ -1,0 +1,295 @@
+/* ============================================================
+   悬浮迷你数字人助手 - 完全重写
+   主题：迷你数字人头像 + 录音脉冲 + 说话波形 + 对话泡泡
+   ============================================================ */
+
+/* ---------- 悬浮按钮（圆形数字人头像） ---------- */
+.fa-float-btn {
+  position: fixed;
+  z-index: 99999;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 4rpx 20rpx rgba(0, 0, 0, 0.15),
+    0 0 0 3rpx rgba(52, 152, 219, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: box-shadow 0.3s, transform 0.15s;
+  border: 2rpx solid rgba(255, 255, 255, 0.8);
+}
+
+.fa-float-btn:active {
+  transform: scale(0.94);
+}
+
+/* 录音中：蓝色脉冲光环 */
+.fa-float-btn--recording {
+  box-shadow:
+    0 0 0 3rpx rgba(41, 128, 185, 0.4),
+    0 0 0 8rpx rgba(41, 128, 185, 0.15);
+}
+
+/* 说话中：绿色呼吸光晕 */
+.fa-float-btn--speaking {
+  box-shadow:
+    0 4rpx 24rpx rgba(46, 204, 113, 0.35),
+    0 0 0 3rpx rgba(46, 204, 113, 0.3);
+  animation: fa-speaking-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes fa-speaking-pulse {
+  0%, 100% {
+    box-shadow: 0 4rpx 24rpx rgba(46, 204, 113, 0.35), 0 0 0 3rpx rgba(46, 204, 113, 0.3);
+  }
+  50% {
+    box-shadow: 0 4rpx 28rpx rgba(46, 204, 113, 0.55), 0 0 0 6rpx rgba(46, 204, 113, 0.15);
+  }
+}
+
+/* ---------- 数字人视频（缩小版，头肩部） ---------- */
+.fa-video {
+  width: 120rpx;
+  height: 140rpx;
+  position: absolute;
+  /* 上移+放大 → 只显示头肩部 */
+  top: -25rpx;
+  left: -10rpx;
+  pointer-events: none;
+  /* 圆形遮罩由父容器 overflow:hidden 实现 */
+}
+
+/* ---------- 默认 CSS 数字人头像（头肩部） ---------- */
+.fa-avatar-default {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 8rpx;
+}
+
+.fa-hair {
+  width: 56rpx;
+  height: 32rpx;
+  background: #2c3e50;
+  border-radius: 28rpx 28rpx 0 0;
+  position: absolute;
+  top: 6rpx;
+}
+
+.fa-face {
+  width: 42rpx;
+  height: 46rpx;
+  background: #fce4d6;
+  border-radius: 50%;
+  position: absolute;
+  top: 18rpx;
+  z-index: 1;
+}
+
+.fa-eye {
+  position: absolute;
+  top: 16rpx;
+  width: 7rpx;
+  height: 7rpx;
+  background: #333;
+  border-radius: 50%;
+}
+
+.fa-eye--left { left: 9rpx; }
+.fa-eye--right { right: 9rpx; }
+
+/* 眼珠高光 */
+.fa-eye::after {
+  content: '';
+  position: absolute;
+  top: 1rpx;
+  left: 2rpx;
+  width: 2.5rpx;
+  height: 2.5rpx;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.fa-mouth {
+  position: absolute;
+  bottom: 10rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16rpx;
+  height: 8rpx;
+  border-bottom: 3rpx solid #c0392b;
+  border-radius: 0 0 10rpx 10rpx;
+}
+
+.fa-blush {
+  position: absolute;
+  top: 24rpx;
+  width: 9rpx;
+  height: 6rpx;
+  background: #ffcdd2;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.fa-blush--left { left: 1rpx; }
+.fa-blush--right { right: 1rpx; }
+
+.fa-body {
+  position: absolute;
+  bottom: 4rpx;
+  width: 64rpx;
+  height: 32rpx;
+  background: #3498db;
+  border-radius: 24rpx 24rpx 8rpx 8rpx;
+}
+
+.fa-collar {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 12rpx solid transparent;
+  border-right: 12rpx solid transparent;
+  border-top: 14rpx solid #fff;
+}
+
+/* ---------- 录音脉冲环 ---------- */
+.fa-ring-anim {
+  position: absolute;
+  inset: -8rpx;
+  pointer-events: none;
+}
+
+.fa-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 4rpx solid rgba(41, 128, 185, 0.5);
+  animation: fa-ring-expand 1.5s ease-out infinite;
+}
+
+.fa-ring--2 {
+  animation-delay: 0.5s;
+}
+
+.fa-ring--3 {
+  animation-delay: 1.0s;
+}
+
+@keyframes fa-ring-expand {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* ---------- 说话波形 ---------- */
+.fa-wave {
+  position: absolute;
+  bottom: 8rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  gap: 4rpx;
+  pointer-events: none;
+  height: 20rpx;
+}
+
+.fa-wave-bar {
+  width: 6rpx;
+  border-radius: 3rpx;
+  background: #2ecc71;
+  animation: fa-wave-bar 0.8s ease-in-out infinite alternate;
+}
+
+.fa-wave-bar:nth-child(1) { height: 10rpx; animation-delay: 0s; }
+.fa-wave-bar:nth-child(2) { height: 18rpx; animation-delay: 0.2s; }
+.fa-wave-bar:nth-child(3) { height: 14rpx; animation-delay: 0.4s; }
+.fa-wave-bar:nth-child(4) { height: 8rpx; animation-delay: 0.6s; }
+
+@keyframes fa-wave-bar {
+  0% { height: 6rpx; }
+  100% { height: 20rpx; }
+}
+
+/* ============================================================
+   对话泡泡（语音播报文字）
+   ============================================================ */
+.fa-bubble {
+  position: fixed;
+  z-index: 99998;
+  max-width: 260rpx;
+  padding: 14rpx 20rpx;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(10rpx);
+  -webkit-backdrop-filter: blur(10rpx);
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.12);
+  animation: fa-bubble-in 0.25s ease;
+  pointer-events: auto;
+}
+
+@keyframes fa-bubble-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(10rpx);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 尾箭头（指向按钮） */
+.fa-bubble-arrow {
+  position: absolute;
+  top: 30rpx;
+  width: 0;
+  height: 0;
+  border: 10rpx solid transparent;
+}
+
+/* 泡泡在右边（默认）→ 箭头指向左边（指向按钮） */
+.fa-bubble--arrow-right .fa-bubble-arrow {
+  border-left-color: rgba(0, 0, 0, 0.78);
+  right: -18rpx;
+}
+
+/* 泡泡在左边 → 箭头指向右边（指向按钮） */
+.fa-bubble--arrow-left .fa-bubble-arrow {
+  border-right-color: rgba(0, 0, 0, 0.78);
+  left: -18rpx;
+}
+
+/* 泡泡文字 */
+.fa-bubble-text {
+  font-size: 24rpx;
+  line-height: 1.6;
+  color: #fff;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+/* 打字光标 */
+.fa-bubble-cursor {
+  color: rgba(255, 255, 255, 0.7);
+  animation: fa-blink 0.6s step-end infinite;
+  margin-left: 2rpx;
+}
+
+@keyframes fa-blink {
+  50% { opacity: 0; }
+}

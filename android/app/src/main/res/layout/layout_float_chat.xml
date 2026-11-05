@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <!-- 对话面板（点击按钮后弹出） -->
+    <LinearLayout
+        android:id="@+id/ll_chat_panel"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="@drawable/bg_chat_panel"
+        android:elevation="12dp"
+        android:padding="12dp"
+        android:layout_marginEnd="8dp">
+
+        <!-- 状态栏 -->
+        <TextView
+            android:id="@+id/tv_chat_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="点击开始对话"
+            android:textColor="#666666"
+            android:textSize="12sp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- 用户语音识别文本 -->
+        <TextView
+            android:id="@+id/tv_user_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:visibility="gone"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
+            android:background="@drawable/bg_chat_user_bubble" />
+
+        <!-- AI 回答文本 -->
+        <TextView
+            android:id="@+id/tv_ai_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:visibility="gone"
+            android:padding="8dp"
+            android:background="@drawable/bg_chat_ai_bubble" />
+
+        <!-- 分隔线 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#EEEEEE"
+            android:layout_marginVertical="8dp" />
+
+        <!-- 操作按钮 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_chat_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关闭"
+                android:textColor="#999999"
+                android:textSize="12sp"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 悬浮按钮 -->
+    <FrameLayout
+        android:id="@+id/fl_float_btn"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/bg_float_dh"
+        android:elevation="8dp">
+
+        <!-- 头像 -->
+        <ImageView
+            android:id="@+id/iv_float_avatar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_float_avatar"
+            android:padding="6dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="AI 助手" />
+
+        <!-- 状态提示 -->
+        <TextView
+            android:id="@+id/tv_float_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="-12dp"
+            android:background="@drawable/bg_float_tip"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="1dp"
+            android:text="AI 在听"
+            android:textColor="#FFFFFF"
+            android:textSize="9sp" />
+
+        <!-- 录音动画指示器 -->
+        <View
+            android:id="@+id/view_recording_indicator"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_gravity="top|end"
+            android:layout_margin="2dp"
+            android:background="@drawable/bg_recording_indicator"
+            android:visibility="gone" />
+    </FrameLayout>
+</FrameLayout>

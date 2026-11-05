@@ -1,0 +1,106 @@
+{
+    "name" : "随行",
+    "appid" : "CHANGE_ME",
+    "description" : "随行 - 智慧旅游导览",
+    "versionName" : "1.0.0",
+    "versionCode" : "100",
+    "transformPx" : false,
+    "app-plus" : {
+        "usingComponents" : true,
+        "nvueStyleCompiler" : "uni-app",
+        "compilerVersion" : 3,
+        "splashscreen" : {
+            "alwaysShowBeforeRender" : true,
+            "waiting" : true,
+            "autoclose" : true,
+            "delay" : 0
+        },
+        "modules" : {
+            "Location" : {},
+            "Camera" : {},
+            "Geolocation" : {},
+            "Record" : {},
+            "Barcode" : {},
+            "VideoPlayer" : {},
+            "Maps" : {}
+        },
+        "distribute" : {
+            "android" : {
+                "permissions" : [
+                    "<uses-permission android:name=\"android.permission.INTERNET\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
+                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>"
+                ],
+                "minSdkVersion" : 21,
+                "targetSdkVersion" : 30
+            },
+            "ios" : {
+                "dSYMs" : false
+            },
+            "sdkConfigs" : {
+                "geolocation" : {
+                    "amap" : {
+                        "name" : "amapj1dK257T",
+                        "__platform__" : [ "android" ],
+                        "appkey_ios" : "",
+                        "appkey_android" : "CHANGE_ME"
+                    }
+                },
+                "speech" : {
+                    "baidu" : {
+                        "appid" : "",
+                        "apikey" : "",
+                        "secretkey" : ""
+                    }
+                },
+                "maps" : {
+                    "amap" : {
+                        "name" : "amapj1dK257T",
+                        "appkey_ios" : "CHANGE_ME",
+                        "appkey_android" : "CHANGE_ME"
+                    }
+                },
+                "push" : {
+                    "unipush" : {
+                        "version" : "2",
+                        "offline" : false
+                    }
+                }
+            }
+        },
+        "privacy" : {
+            "flash" : "2"
+        },
+        "allowsInlineMediaPlayback" : true
+    },
+    "quickapp" : {},
+    "mp-weixin" : {
+        "appid" : "CHANGE_ME",
+        "setting" : {
+            "urlCheck" : false
+        },
+        "usingComponents" : true
+    },
+    "h5" : {
+        "router" : {
+            "mode" : "hash"
+        },
+        "devServer" : {
+            "port" : 8080,
+            "disableHostCheck" : true,
+            "proxy" : {
+                "/digital" : {
+                    "target" : "http://192.0.2.1:8000",
+                    "changeOrigin" : true,
+                    "secure" : false
+                }
+            }
+        },
+        "video" : {
+            "player" : "hls.js"
+        }
+    }
+}

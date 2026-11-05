@@ -1,0 +1,29 @@
+{
+  "name": "stuio_uniapp",
+  "version": "1.0.0",
+  "description": "随行 - 智慧旅游导览 uni-app Vue2 项目",
+  "main": "main.js",
+  "scripts": {
+    "dev": "uni -p h5",
+    "build": "uni build -p h5",
+    "dev:app": "uni -p app",
+    "build:app": "uni build -p app",
+    "dev:mp-weixin": "uni -p mp-weixin",
+    "build:mp-weixin": "uni build -p mp-weixin"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "uview-ui": "^1.8.8",
+    "vue": "^2.7.0",
+    "@dcloudio/uni-app": "2.0.2-5010420260703001",
+    "@dcloudio/uni-h5": "2.0.2-5010420260703001",
+    "@dcloudio/uni-mp-weixin": "2.0.2-5010420260703001",
+    "@dcloudio/uni-stat": "2.0.2-5010420260703001"
+  },
+  "devDependencies": {
+    "sass-loader": "^10.4.1",
+    "sass": "^1.77.0"
+  }
+}

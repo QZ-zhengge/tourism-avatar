@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="56dp"
+    android:layout_height="56dp"
+    android:background="@drawable/bg_float_dh"
+    android:elevation="8dp">
+
+    <!-- 头像 -->
+    <ImageView
+        android:id="@+id/iv_float_avatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_float_avatar"
+        android:padding="6dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher"
+        android:contentDescription="数字人浮窗" />
+
+    <!-- 提示气泡（展开时显示） -->
+    <TextView
+        android:id="@+id/tv_float_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="-12dp"
+        android:background="@drawable/bg_float_tip"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="1dp"
+        android:text="AI 在听"
+        android:textColor="#FFFFFF"
+        android:textSize="9sp" />
+
+    <!-- 关闭按钮 -->
+    <ImageView
+        android:id="@+id/iv_float_close"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_gravity="top|end"
+        android:layout_margin="2dp"
+        android:background="@drawable/bg_float_close"
+        android:padding="2dp"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        android:contentDescription="关闭" />
+</FrameLayout>

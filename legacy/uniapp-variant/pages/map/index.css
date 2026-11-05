@@ -1,0 +1,484 @@
+/* ===== 地图页 - 仿高德交互布局 ===== */
+.map-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #f2f4f7;
+  overflow: hidden;
+}
+
+/* ========== 地图区域（压缩以容纳工具+天气） ========== */
+.map-area {
+  position: relative;
+  flex: 0 0 38vh;
+  min-height: 280rpx;
+  overflow: hidden;
+  transition: flex 0.3s ease;
+}
+
+.map-area--compact {
+  flex: 0 0 38vh;
+}
+
+.map-area--full {
+  flex: 1;
+}
+
+.the-map {
+  width: 100%;
+  height: 100%;
+}
+
+/* ========== 顶部栏（返回+城市） ========== */
+.map-header {
+  position: absolute;
+  top: calc(12rpx + env(safe-area-inset-top));
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20rpx;
+  pointer-events: none;
+}
+
+.map-header > * { pointer-events: auto; }
+
+.h-left {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.h-back-btn {
+  width: 60rpx;
+  height: 60rpx;
+  background: rgba(255,255,255,0.95);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.12);
+}
+
+.city-tag {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 40rpx;
+  padding: 0 22rpx;
+  height: 60rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.12);
+}
+
+.city-name { font-size: 28rpx; font-weight: 600; color: #333; max-width: 140rpx; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.header-actions { display: flex; gap: 16rpx; }
+
+.h-btn {
+  width: 60rpx; height: 60rpx;
+  background: rgba(255,255,255,0.95);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.12);
+}
+
+/* 地图上的浮动按钮 */
+.map-float-route {
+  position: absolute; bottom: 20rpx; right: 20rpx; z-index: 10;
+  width: 120rpx; height: 120rpx;
+  background: linear-gradient(135deg, #2dba98, #1a9a7a);
+  border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 4rpx;
+  box-shadow: 0 8rpx 32rpx rgba(45,186,152,0.4);
+}
+
+.mfr-text { font-size: 20rpx; color: #fff; }
+
+/* ========== 工具 + 天气固定条 ========== */
+.tools-weather-strip {
+  flex-shrink: 0;
+  background: #fff;
+  padding-top: 10rpx;
+  z-index: 5;
+}
+
+/* ========== 底部面板（搜索/详情/路线时弹出） ========== */
+.bottom-sheet {
+  background: #fff;
+  border-radius: 32rpx 32rpx 0 0;
+  box-shadow: 0 -8rpx 40rpx rgba(0,0,0,0.1);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  margin-top: -32rpx;
+}
+
+.bottom-sheet--expanded {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* 可滚动内容区 */
+.bs-scrollable {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* ========== 搜索栏 ========== */
+.bs-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 0 32rpx 16rpx;
+  flex-shrink: 0;
+}
+
+.bs-search-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  background: #f5f6f8;
+  border-radius: 40rpx;
+  padding: 0 24rpx;
+  height: 72rpx;
+}
+
+.bs-search-input {
+  flex: 1;
+  font-size: 28rpx;
+  height: 100%;
+}
+
+.bs-clear { width: 40rpx; height: 40rpx; display: flex; align-items: center; justify-content: center; }
+
+/* ========== 出行方式选择 ========== */
+.route-mode-bar {
+  display: flex;
+  gap: 16rpx;
+  padding: 0 32rpx 20rpx;
+  flex-shrink: 0;
+}
+
+.route-mode-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  padding: 16rpx 0;
+  background: #f5f6f8;
+  border-radius: 20rpx;
+  transition: all 0.2s;
+}
+
+.route-mode-btn--active {
+  background: #e8faf4;
+  border: 2rpx solid #2dba98;
+}
+
+.route-mode-label { font-size: 24rpx; color: #666; font-weight: 500; }
+.route-mode-label--active { color: #2dba98; font-weight: 600; }
+.route-mode-time { font-size: 22rpx; color: #999; }
+.route-mode-time--active { color: #2dba98; }
+
+/* ========== 天气卡片（高德风格） ========== */
+.map-weather-card {
+  margin: 0;
+  background: #fff;
+  padding: 16rpx 28rpx 14rpx;
+  border-top: 1rpx solid #f0f0f0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.mwc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+
+.mwc-title {
+  font-size: 24rpx;
+  color: #666;
+  font-weight: 500;
+}
+
+.mwc-title-tag {
+  font-size: 22rpx;
+  color: #999;
+  background: #f5f5f5;
+  padding: 2rpx 14rpx;
+  border-radius: 20rpx;
+}
+
+.mwc-summary-meta {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 4rpx;
+  font-size: 22rpx;
+  color: #888;
+}
+
+.mwc-summary-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.mwc-current-icon {
+  font-size: 40rpx;
+  flex-shrink: 0;
+}
+
+.mwc-summary-text {
+  flex: 1;
+}
+
+.mwc-summary {
+  font-size: 26rpx;
+  color: #222;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.mwc-hourly {
+  white-space: nowrap;
+  width: 100%;
+}
+
+.mwc-hour-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6rpx;
+  min-width: 88rpx;
+  padding: 8rpx 0;
+  border-right: 1rpx solid #f5f5f5;
+}
+
+.mwc-hour-item:last-child {
+  border-right: none;
+}
+
+.mwc-hour-time {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.mwc-hour-icon {
+  font-size: 34rpx;
+}
+
+.mwc-hour-temp {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 600;
+}
+
+/* ========== 工具网格 ========== */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12rpx;
+  padding: 0 32rpx 20rpx;
+}
+
+.tool-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  padding: 12rpx 0;
+}
+
+.tool-icon {
+  width: 80rpx; height: 80rpx;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.tool-label { font-size: 22rpx; color: #666; }
+
+/* ========== 热门标签 ========== */
+.hot-tags { padding: 0 32rpx 20rpx; }
+.tags-title { font-size: 26rpx; font-weight: 600; color: #333; margin-bottom: 12rpx; display: block; }
+.tags-list { display: flex; flex-wrap: wrap; gap: 16rpx; }
+.tag-item { display: flex; align-items: center; gap: 6rpx; padding: 10rpx 20rpx; background: #f5f6f8; border-radius: 30rpx; font-size: 24rpx; color: #555; }
+
+/* ========== POI列表 ========== */
+.poi-list { padding: 0 32rpx 20rpx; max-height: 400rpx; }
+.poi-item { display: flex; align-items: center; gap: 16rpx; padding: 16rpx 0; border-bottom: 1rpx solid #f0f0f0; }
+.poi-icon { width: 64rpx; height: 64rpx; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.poi-info { flex: 1; min-width: 0; }
+.poi-name { font-size: 28rpx; font-weight: 500; color: #1a1a1a; display: block; }
+.poi-desc { font-size: 22rpx; color: #999; margin-top: 4rpx; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.poi-dist { font-size: 22rpx; color: #999; flex-shrink: 0; }
+
+/* ========== 搜索结果 ========== */
+.search-scroll { padding: 0 32rpx 20rpx; max-height: 500rpx; }
+.result-item { display: flex; align-items: center; gap: 16rpx; padding: 16rpx 0; border-bottom: 1rpx solid #f0f0f0; }
+.result-icon { width: 64rpx; height: 64rpx; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.result-info { flex: 1; min-width: 0; }
+.result-name { font-size: 28rpx; font-weight: 500; color: #1a1a1a; display: block; }
+.result-desc { font-size: 22rpx; color: #999; margin-top: 4rpx; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.result-dist { font-size: 22rpx; color: #999; flex-shrink: 0; }
+
+/* ========== POI详情卡片 ========== */
+.poi-detail-card { padding: 0 32rpx 24rpx; }
+.pd-title { font-size: 34rpx; font-weight: 700; color: #1a1a1a; display: block; margin-bottom: 8rpx; }
+.pd-addr { font-size: 26rpx; color: #666; display: block; margin-bottom: 20rpx; }
+.pd-route-btn { display: flex; align-items: center; justify-content: center; gap: 10rpx; background: #2dba98; border-radius: 40rpx; padding: 20rpx 0; }
+.pd-route-text { font-size: 28rpx; font-weight: 600; color: #fff; }
+
+/* ========== 开始导航按钮 ========== */
+.start-nav-bar { padding: 0 32rpx 24rpx; }
+.start-nav-btn { display: flex; align-items: center; justify-content: center; gap: 10rpx; background: linear-gradient(135deg, #2dba98, #1a9a7a); border-radius: 40rpx; padding: 24rpx 0; }
+.start-nav-text { font-size: 30rpx; font-weight: 700; color: #fff; }
+
+/* ========== 导航模式覆盖层 ========== */
+.nav-overlay {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+.nav-overlay > * { pointer-events: auto; }
+
+.nav-top-info {
+  position: absolute; top: calc(80rpx + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%);
+  background: rgba(255,255,255,0.95);
+  border-radius: 40rpx;
+  padding: 16rpx 28rpx;
+  display: flex; align-items: center; gap: 24rpx;
+  box-shadow: 0 4rpx 24rpx rgba(0,0,0,0.12);
+}
+
+.nav-top-left {
+  display: flex; flex-direction: column; align-items: center; gap: 2rpx;
+}
+
+/* 导航中切换模式按钮组 */
+.nav-mode-switch {
+  display: flex; gap: 8rpx;
+  padding-left: 20rpx;
+  border-left: 1rpx solid #eee;
+}
+.nm-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 2rpx;
+  padding: 6rpx 14rpx; border-radius: 16rpx; background: #f5f5f5;
+}
+.nm-btn--active { background: #e8f8f4; }
+.nm-icon { font-size: 26rpx; }
+.nm-label { font-size: 20rpx; color: #999; }
+.nm-label--active { color: #2dba98; font-weight: 600; }
+
+.nav-dist { font-size: 36rpx; font-weight: 700; color: #1a1a1a; }
+.nav-dist-unit { font-size: 22rpx; font-weight: 400; color: #999; margin-left: 4rpx; }
+.nav-eta { font-size: 24rpx; color: #666; }
+
+.nav-step-bar {
+  position: absolute; bottom: 120rpx; left: 32rpx; right: 32rpx;
+  background: rgba(255,255,255,0.95);
+  border-radius: 24rpx;
+  padding: 20rpx 28rpx;
+  display: flex; align-items: center; gap: 16rpx;
+  box-shadow: 0 -4rpx 24rpx rgba(0,0,0,0.1);
+}
+
+.nav-step-text { font-size: 28rpx; color: #333; flex: 1; }
+
+/* 进度条 */
+.nav-progress-wrap {
+  position: absolute; bottom: 220rpx; left: 32rpx; right: 32rpx;
+}
+.nav-progress-bar {
+  height: 8rpx; background: rgba(255,255,255,0.3); border-radius: 4rpx; overflow: hidden;
+}
+.nav-progress-fill {
+  height: 100%; background: #2dba98; border-radius: 4rpx; transition: width 0.3s;
+}
+.nav-progress-labels {
+  display: flex; justify-content: space-between; margin-top: 8rpx;
+}
+.nav-progress-label { font-size: 20rpx; color: #fff; text-shadow: 0 1rpx 4rpx rgba(0,0,0,0.5); }
+
+/* 搜索返回键 */
+.bs-search-back {
+  width: 60rpx; height: 60rpx;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.nav-bottom-bar {
+  position: absolute; bottom: 40rpx; left: 32rpx; right: 32rpx;
+  display: flex; gap: 16rpx;
+}
+
+.nav-bottom-btn {
+  flex: 1;
+  height: 88rpx;
+  background: rgba(255,255,255,0.95);
+  border-radius: 44rpx;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4rpx;
+  box-shadow: 0 4rpx 24rpx rgba(0,0,0,0.1);
+}
+
+.nav-bottom-btn--primary { background: #2dba98; }
+.nav-bottom-btn--exit { background: #e74c3c; border-radius: 44rpx; }
+.nav-btn-label { font-size: 20rpx; color: #666; }
+.nav-btn-label--light { color: #fff; }
+.nav-btn-label--white { color: #fff; }
+
+/* ========== 右侧垂直进度条 ========== */
+.nav-progress-vert {
+  position: absolute;
+  right: 16rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 35;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.nav-progress-vert-track {
+  width: 8rpx;
+  height: 320rpx;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-progress-vert-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to top, #2dba98, #4de6c8);
+  border-radius: 4rpx;
+  transition: height 0.3s ease;
+}
+
+.nav-progress-vert-label {
+  font-size: 20rpx;
+  color: #fff;
+  font-weight: 600;
+  text-shadow: 0 1rpx 4rpx rgba(0,0,0,0.5);
+}
+
+/* 搜索/路线选择时强制展开（覆盖snap） */
+.bottom-sheet--search {
+  flex: 0 0 65vh !important;
+  overflow: hidden;
+}

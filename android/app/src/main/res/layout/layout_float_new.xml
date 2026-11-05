@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/float_root"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    android:clipChildren="true"
+    android:clipToPadding="true">
+
+    <!-- 圆形视频容器（使用自定义裁切布局） -->
+    <com.example.let_us_go.core.float.CircleClipLayout
+        android:id="@+id/float_video_container"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/circle_background">
+
+        <!-- 视频播放器 -->
+        <androidx.media3.ui.PlayerView
+            android:id="@+id/float_video_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+
+        <!-- 默认头像（视频加载前显示） -->
+        <ImageView
+            android:id="@+id/float_default_icon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_digital_human"
+            android:scaleType="centerCrop" />
+
+    </com.example.let_us_go.core.float.CircleClipLayout>
+
+    <!-- 状态指示器（录音时显示） -->
+    <View
+        android:id="@+id/float_recording_indicator"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_gravity="top|end"
+        android:background="@drawable/circle_red"
+        android:visibility="gone" />
+
+</FrameLayout>

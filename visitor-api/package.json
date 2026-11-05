@@ -1,0 +1,18 @@
+{
+  "name": "softwarecupai",
+  "version": "1.0.0",
+  "description": "FastAPI + MySQL 后端服务，为HBuilderX安卓APP提供API支持。",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "docx": "^9.7.1"
+  }
+}

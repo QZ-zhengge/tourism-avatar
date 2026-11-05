@@ -1,0 +1,378 @@
+.page {
+  height: 100vh;
+  background: #f5f7fa;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ==========================================
+   导航栏
+   ========================================== */
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+  padding-bottom: 0;
+  background: #ffffff;
+  color: #333;
+  border-bottom: 1rpx solid #f0f0f0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+.nav-back {
+  width: 88rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding-left: 8rpx;
+}
+
+.back-icon {
+  font-size: 44rpx;
+  font-weight: 600;
+  color: #333;
+  line-height: 1;
+}
+
+.nav-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  flex: 1;
+  text-align: center;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  width: 88rpx;
+  justify-content: flex-end;
+}
+
+.nav-action {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-icon {
+  font-size: 30rpx;
+}
+
+/* ==========================================
+   搜索栏
+   ========================================== */
+
+.search-bar {
+  padding: 16rpx 24rpx;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.search-input-wrap {
+  height: 64rpx;
+  background: #f0f2f5;
+  border-radius: 32rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 24rpx;
+  gap: 8rpx;
+}
+
+.search-icon-small {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.search-placeholder {
+  font-size: 26rpx;
+  color: #bbb;
+}
+
+/* ==========================================
+   标签分类栏
+   ========================================== */
+
+.tag-bar {
+  padding: 0 24rpx 16rpx;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.tag-scroll {
+  white-space: nowrap;
+  overflow-x: auto;
+  display: flex;
+}
+
+.tag-item {
+  display: inline-block;
+  padding: 10rpx 24rpx;
+  margin-right: 14rpx;
+  background: #f5f7fa;
+  border-radius: 28rpx;
+  font-size: 24rpx;
+  color: #666;
+  border: 1px solid #e8ecf0;
+}
+
+.tag-item.active {
+  background: #4A90D9;
+  color: #fff;
+  border-color: #4A90D9;
+}
+
+/* ==========================================
+   帖子列表
+   ========================================== */
+
+.feed-scroll {
+  flex: 1;
+  min-height: 0;
+  padding: 0 24rpx;
+}
+
+.loading-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 0;
+  gap: 12rpx;
+}
+
+.loading-spinner {
+  width: 32rpx;
+  height: 32rpx;
+  border: 3px solid #e0e8f0;
+  border-top-color: #4A90D9;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.feed-list {
+  padding-top: 12rpx;
+}
+
+.post-card {
+  display: flex;
+  gap: 18rpx;
+  padding: 20rpx 0;
+  border-bottom: 1px solid #eee;
+}
+
+.post-card:last-of-type {
+  border-bottom: none;
+}
+
+.post-cover {
+  width: 180rpx;
+  height: 136rpx;
+  border-radius: 18rpx;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cover-letter {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.2);
+}
+
+.post-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.post-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #222;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-excerpt {
+  font-size: 22rpx;
+  color: #888;
+  line-height: 1.5;
+  margin-top: 6rpx;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-top: 8rpx;
+}
+
+.post-source {
+  font-size: 20rpx;
+  color: #4A90D9;
+}
+
+.post-link-hint {
+  font-size: 20rpx;
+  color: #4A90D9;
+  margin-left: auto;
+}
+
+.post-date {
+  font-size: 20rpx;
+  color: #bbb;
+}
+
+.post-link-hint {
+  font-size: 20rpx;
+  color: #4A90D9;
+  margin-left: auto;
+}
+
+/* ==========================================
+   空状态 & 加载更多
+   ========================================== */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 0;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.load-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30rpx 0;
+  gap: 10rpx;
+}
+
+.no-more {
+  text-align: center;
+  padding: 30rpx 0;
+  font-size: 22rpx;
+  color: #ccc;
+}
+
+/* ==========================================
+   出行清单
+   ========================================== */
+
+.checklist-section {
+  padding: 32rpx 0 24rpx;
+}
+
+.checklist-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.checklist-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #333;
+}
+
+.add-btn {
+  font-size: 24rpx;
+  color: #4A90D9;
+}
+
+.checklist-items {
+  background: #fff;
+  border-radius: 18rpx;
+  padding: 8rpx 0;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 20rpx 24rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.checklist-item:last-child {
+  border-bottom: none;
+}
+
+.check-box {
+  width: 40rpx;
+  height: 40rpx;
+  border: 2rpx solid #ddd;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.checklist-item.checked .check-box {
+  background: #4A90D9;
+  border-color: #4A90D9;
+}
+
+.check-icon {
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: bold;
+}
+
+.item-text {
+  font-size: 26rpx;
+  color: #333;
+}
+
+.checklist-item.checked .item-text {
+  color: #999;
+  text-decoration: line-through;
+}
+
+.safe-bottom {
+  height: calc(40rpx + env(safe-area-inset-bottom));
+}

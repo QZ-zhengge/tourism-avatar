@@ -1,0 +1,464 @@
+/* ============================================================
+   数字人页面 - 中间光球 + 数字人视频 + 底部操作栏
+   ============================================================ */
+
+/* ===== 最外层 ===== */
+.page-root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== 页面内容 ===== */
+.dh-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: #d4d0d8;
+  box-sizing: border-box;
+}
+
+/* ===== 顶部导航栏（与其他页面统一风格） ===== */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 20rpx;
+  padding-right: 24rpx;
+  padding-bottom: 0;
+  background: #ffffff;
+  border-bottom: 1rpx solid #f0f0f0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+.dh-back-btn {
+  width: 88rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  padding-left: 8rpx;
+}
+
+.dh-back-icon {
+  font-size: 44rpx;
+  color: #333;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.page-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+  flex: 1;
+  text-align: center;
+}
+
+.nav-right-placeholder {
+  width: 88rpx;
+  flex-shrink: 0;
+}
+
+/* ===== 导航目标提示条 ===== */
+.nav-target-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  padding: 14rpx 32rpx;
+  background: linear-gradient(135deg, rgba(77,230,200,0.18), rgba(59,196,207,0.18));
+  border-top: 1rpx solid rgba(59,196,207,0.2);
+  border-bottom: 1rpx solid rgba(59,196,207,0.2);
+  flex-shrink: 0;
+}
+
+.nav-target-icon {
+  font-size: 28rpx;
+  color: #2dba98;
+}
+
+.nav-target-text {
+  font-size: 26rpx;
+  color: #2dba98;
+  font-weight: 600;
+}
+
+.nav-target-cancel {
+  margin-left: 12rpx;
+  font-size: 32rpx;
+  color: #aaa;
+  line-height: 1;
+  padding: 4rpx 8rpx;
+}
+
+/* ===== 数字人形象区 - 独占最大空间 ===== */
+.human-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 数字人视频播放器 - 占满舞台，底部对齐让脚完整露出 */
+.dh-video-player {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  overflow: hidden;
+  z-index: 1;
+  background: #d4d0d8;
+}
+
+/* 光球效果（隐藏，背景色已与数字人一致） */
+.glow-orb {
+  display: none;
+}
+
+.glow-orb.connecting {
+  animation: orb-breathe 1.5s ease-in-out infinite, orb-glow 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes orb-breathe {
+  0%   { transform: translate(-50%, -50%) scale(0.97); }
+  50%  { transform: translate(-50%, -50%) scale(1.03); }
+  100% { transform: translate(-50%, -50%) scale(0.97); }
+}
+
+@keyframes orb-glow {
+  0%   { filter: blur(28rpx); opacity: 0.75; }
+  100% { filter: blur(42rpx); opacity: 1; }
+}
+
+@keyframes dh-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 数字人启动中/失败 覆盖层 */
+.dh-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  z-index: 3;
+}
+
+.dh-overlay-icon {
+  font-size: 56rpx;
+  color: #fff;
+  font-weight: 700;
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+}
+
+/* loading 旋转动画 */
+.dh-loading-spinner {
+  width: 64rpx;
+  height: 64rpx;
+  border: 4rpx solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: dh-spin 0.8s linear infinite;
+}
+
+.dh-overlay-text {
+  font-size: 28rpx;
+  color: #fff;
+}
+
+.dh-retry-btn {
+  margin-top: 16rpx;
+  background: #6c5ce7;
+  padding: 16rpx 32rpx;
+  border-radius: 30rpx;
+}
+
+.dh-retry-btn text {
+  color: #fff;
+  font-size: 26rpx;
+}
+
+/* ===== 状态文字区（极简，不占空间）===== */
+.status-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rpx 0;
+  flex-shrink: 0;
+}
+
+.dot-row {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+}
+
+.wave-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #ccc;
+  transition: background 0.3s;
+}
+
+.wave-dot.active {
+  background: #6c5ce7;
+  animation: wave-bounce 0.8s ease-in-out infinite alternate;
+}
+
+.wave-dot.delay1.active { animation-delay: 0.15s; }
+.wave-dot.delay2.active { animation-delay: 0.3s; }
+
+@keyframes wave-bounce {
+  0%   { transform: translateY(0); opacity: 0.4; }
+  100% { transform: translateY(-8rpx); opacity: 1; }
+}
+
+.status-text {
+  display: none;
+}
+
+/* ===== 底部区域 - 极紧凑 ===== */
+.bottom-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rpx 0 calc(4rpx + env(safe-area-inset-bottom));
+  flex-shrink: 0;
+}
+
+/* 四个操作按钮 - 均匀排布在整个区域 */
+.action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+
+.act-btn {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.act-btn:active {
+  transform: scale(0.92);
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.12);
+}
+
+.act-btn--active {
+  background: #6c5ce7;
+  box-shadow: 0 4rpx 24rpx rgba(108, 92, 231, 0.4);
+}
+
+.act-btn--close {
+  background: rgba(255, 235, 235, 0.9);
+}
+
+/* ============================================================
+   预订卡片 - 千问风格
+   ============================================================ */
+
+.booking-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99999;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.booking-card {
+  width: 100%;
+  max-height: 85vh;
+  background: #fff;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 32rpx 32rpx calc(32rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  overflow-y: auto;
+  position: relative;
+}
+
+.booking-close {
+  position: absolute;
+  top: 24rpx;
+  right: 32rpx;
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  color: #999;
+  z-index: 2;
+}
+
+/* Card header: info only */
+.bc-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+  margin-bottom: 24rpx;
+}
+
+.bc-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10rpx;
+}
+
+.bc-info-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.bc-info-meta {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  flex-wrap: wrap;
+}
+
+.bc-info-rating {
+  font-size: 24rpx;
+  color: #f5a623;
+  font-weight: 600;
+}
+
+.bc-info-tag {
+  font-size: 22rpx;
+  color: #666;
+  background: #f5f5f5;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+}
+
+.bc-info-price {
+  font-size: 36rpx;
+  color: #e74c3c;
+  font-weight: 700;
+}
+
+.bc-info-price-unit {
+  font-size: 22rpx;
+  color: #999;
+  font-weight: 400;
+}
+
+.bc-info-address {
+  font-size: 24rpx;
+  color: #888;
+}
+
+.bc-divider {
+  height: 1rpx;
+  background: #f0f0f0;
+  margin: 8rpx 0 20rpx;
+}
+
+/* Hint text */
+.bc-hint {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 20rpx;
+  padding: 16rpx 20rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+}
+
+/* Editable form */
+.bc-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.bc-form-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.bc-form-label {
+  width: 128rpx;
+  font-size: 26rpx;
+  color: #666;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.bc-form-input {
+  flex: 1;
+  height: 72rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+  font-size: 26rpx;
+  color: #333;
+  border: 2rpx solid transparent;
+  box-sizing: border-box;
+}
+
+/* Action buttons */
+.bc-actions {
+  margin-top: 32rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.bc-act-btn {
+  height: 88rpx;
+  border-radius: 44rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.bc-act-confirm {
+  background: #2dba98;
+  color: #fff;
+}
+
+.bc-act-secondary {
+  background: #f5f7fa;
+  color: #333;
+}
